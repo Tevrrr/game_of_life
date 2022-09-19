@@ -1,0 +1,11 @@
+.Fild,
+.Line{
+    display: flex;
+    gap: .3rem;
+
+}
+
+.Fild{
+    flex-direction: column;
+    padding: .3rem;
+}
