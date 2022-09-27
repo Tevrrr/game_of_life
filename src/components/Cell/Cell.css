@@ -1,8 +1,8 @@
 .cell,
 .activeCell{
     cursor: pointer;
-    min-width: 1.5rem;
-    min-height: 1.5rem;
+    min-width: .7rem;
+    min-height: .7rem;
     background: #fafafa;
 }
 

@@ -1,15 +1,18 @@
-import {useContext, useEffect} from 'react'
+import { useContext, useEffect, useState } from 'react';
 import { FieldContext } from "./common/Field/FieldContext";
 import Field from "./components/Field/Field";
 
 
 function App() {
-    const { randomFillField } = useContext(FieldContext)
-    useEffect(()=>{randomFillField()},[])
+    const { randomFillField, pauseToggle } = useContext(FieldContext)
+
+
+    
   return (
-      <div className="App">
-          <Field />
-    </div>
+		<div className='App'>
+			<button onClick={pauseToggle}>FFF</button>
+			<Field />
+		</div>
   );
 }
 

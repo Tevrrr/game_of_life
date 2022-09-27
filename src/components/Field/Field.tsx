@@ -13,9 +13,16 @@ const Field: FC<FieldProps> = () => {
 		<div className='Fild'>
 			{field.map((line, y) => {
 				return (
-					<div className='Line'>
+					<div key={`Line_${y}`} className='Line'>
 						{line.map((cell, x) => {
-							return <Cell x={x} y={y} live={cell.live} />;
+							return (
+								<Cell
+									key={`${x}_${y}`}
+									x={x}
+									y={y}
+									live={cell.live}
+								/>
+							);
 						})}
 					</div>
 				);
