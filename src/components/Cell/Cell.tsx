@@ -1,18 +1,20 @@
+/** @format */
+
 import { FC, useContext } from 'react';
 import { FieldContext } from '../../common/Field/FieldContext';
-import './Cell.css'
+import { ICell } from '../../common/types/Cell';
+import './Cell.css';
 
 interface CellProps {
-    x: number,
-    y: number,
-    live: boolean
+	value: ICell;
 }
 
-const Cell: FC<CellProps> = ({ x, y, live }) => {
-    const { toggleCell } = useContext(FieldContext)
-    const click = () => {
-        toggleCell(x, y)
-    }
+const Cell: FC<CellProps> = ({ value }) => {
+	const { toggleCell } = useContext(FieldContext);
+	const { live } = value;
+	const click = () => {
+		toggleCell(value);
+	};
 	return <div onClick={click} className={live ? 'activeCell' : 'cell'}></div>;
 };
 

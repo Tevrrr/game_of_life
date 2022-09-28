@@ -1,8 +1,9 @@
 /** @format */
 
 import { FC, useState, useEffect, ReactNode } from 'react';
+import { ICell } from '../types/Cell';
 import { FieldContext, initialFieldContext } from './FieldContext';
-import { nextMoveField, randomFillField, toggleCell } from './FiledHandler';
+import { nextMoveField, randomFillField } from './FiledHandler';
 
 interface FieldProviderProps {
 	children: ReactNode;
@@ -10,32 +11,42 @@ interface FieldProviderProps {
 
 const FieldProvider: FC<FieldProviderProps> = ({ children }) => {
 	const [field, setField] = useState(initialFieldContext);
-	const [pause, setPause] = useState<boolean>(true);
-
+	const [timerStatus, setTimerStatus] = useState<boolean>(false);
+    const [speed, setSpeed] = useState(1000);
 
 	useEffect(() => {
-		const timer =
-			!pause &&
+		const timerID =
+			timerStatus &&
 			setTimeout(() => {
 				setField(nextMoveField(field));
-			}, 200);
+			}, speed);
 		return () => {
-			if (timer) clearInterval(timer);
+			if (timerID) clearInterval(timerID);
 		};
-	}, [pause, field]);
+    }, [timerStatus, field, speed]);
+    
+    const toggleCell = (targetCell: ICell) => {
+        const { x, y } = targetCell;
+		let updatedField = field;
+		updatedField[y][x] = { ...targetCell, live: !targetCell.live };
+		setField([...updatedField]);
+    };
 
-	const pauseToggle = () => {
-		setPause(!pause);
-	};
+	const timerToggle = () => {
+		setTimerStatus(!timerStatus);
+    };
+    const setValueSpeed = (value:number) => setSpeed(value)
 	return (
 		<FieldContext.Provider
 			value={{
 				field,
-				toggleCell: toggleCell(field, (value) => setField(value)),
+				timerStatus,
+				toggleCell,
 				randomFillField: randomFillField(field, (value) =>
 					setField(value)
 				),
-				pauseToggle,
+				timerToggle,
+				setSpeed: setValueSpeed,
 			}}>
 			{children}
 		</FieldContext.Provider>

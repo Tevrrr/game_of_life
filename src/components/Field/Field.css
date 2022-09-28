@@ -7,5 +7,7 @@
 
 .Fild{
     flex-direction: column;
-    padding: .1rem;
+    padding: 1rem;
+    max-height: 100vh;
+    overflow: auto;
 }

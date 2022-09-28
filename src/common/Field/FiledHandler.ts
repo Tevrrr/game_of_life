@@ -1,63 +1,19 @@
 /** @format */
 
+import { countingSurroundingCells, enumArr } from '../helpers/FieldHelpers';
 import { ICell } from '../types/Cell';
-
-export const enumArr = (
-	value: ICell[][],
-	props: (item: ICell, x: number, y: number, line: ICell[]) => ICell
-) => {
-	return value.map((line, y) => {
-		return line.map((item, x) => {
-			return props(item, x, y, line);
-		});
-	});
-};
-
-//  targetCells:
-//  [x-1|y+1][ x |y+1][x+1|y+1]
-//  [x-1| y ][ x | y ][x+1| y ]
-//  [x-1|y-1][ x |y-1][x+1|y-1]
-
-const countingSurroundingCells = (
-	arr: ICell[][],
-	centralСell: ICell
-): number => {
-	const { x, y } = centralСell;
-	const targetCells: { x: number; y: number }[] = [
-		{ x: x, y: y + 1 },
-		{ x: x + 1, y: y + 1 },
-		{ x: x + 1, y: y },
-		{ x: x + 1, y: y - 1 },
-		{ x: x, y: y - 1 },
-		{ x: x - 1, y: y - 1 },
-		{ x: x - 1, y: y },
-		{ x: x - 1, y: y + 1 },
-	];
-	return targetCells.reduce((count, item) => {
-		const within: boolean =
-			item.x >= 0 &&
-			item.x < arr[0].length &&
-			item.y >= 0 &&
-			item.y < arr.length;
-		if (within) {
-			if (arr[item.y][item.x].live) return count + 1;
-		}
-		return count;
-	}, 0);
-};
 
 export const toggleCell = (
 	value: ICell[][],
 	setValue: (value: ICell[][]) => void
-): ((x: number, y: number) => void) => {
-	return (findX: number, findY: number) => {
-		setValue(
-			enumArr(value, (item, x, y) => {
-				if (findX === x && findY === y) {
-					return { ...item, live: !item.live };
-				} else return item;
-			})
-		);
+): ((targetCell: ICell) => void) => {
+    return (targetCell: ICell) => {
+        const {x, y} = targetCell
+        let updatedField = value;
+        console.log(updatedField[y][x]);
+        updatedField[y][x] = {...targetCell, live: !targetCell.live}
+        console.log(updatedField[y][x]);
+		setValue(updatedField);
 	};
 };
 
@@ -76,26 +32,22 @@ export const randomFillField = (
 
 export const nextMoveField = (value: ICell[][]): ICell[][] => {
 	return value.map((line) => {
-			return line.map((item) => {
-				const numberLiveCells: number = countingSurroundingCells(
-					value,
-					item
-				);
-				if (!item.live && numberLiveCells === 3) {
-					return { ...item, live: true };
-				}
-				if (
-					item.live &&
-					(numberLiveCells === 2 || numberLiveCells === 3)
-				) {
-					return { ...item, live: true };
-				}
-				if (item.live && (numberLiveCells < 2 || numberLiveCells > 3)) {
-					return { ...item, live: false };
-				}
+		return line.map((item) => {
+			const numberLiveCells: number = countingSurroundingCells(
+				value,
+				item
+			);
+			if (!item.live && numberLiveCells === 3) {
+				return { ...item, live: true };
+			}
+			if (item.live && (numberLiveCells === 2 || numberLiveCells === 3)) {
+				return { ...item, live: true };
+			}
+			if (item.live && (numberLiveCells < 2 || numberLiveCells > 3)) {
+				return { ...item, live: false };
+			}
 
-				return item;
-			});
+			return item;
 		});
-
+	});
 };

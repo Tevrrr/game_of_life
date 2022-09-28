@@ -18,9 +18,7 @@ const Field: FC<FieldProps> = () => {
 							return (
 								<Cell
 									key={`${x}_${y}`}
-									x={x}
-									y={y}
-									live={cell.live}
+									value={cell}
 								/>
 							);
 						})}

@@ -1,0 +1,25 @@
+/** @format */
+
+.TimePanel {
+	position: fixed;
+	bottom: 1rem;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+}
+
+.TimePanel > div {
+	display: flex;
+	gap: 1rem;
+	background: #aaa9;
+	padding: .5rem;
+	border-radius: 999999999px;
+}
+.TimePanel button {
+
+    font-size: 2rem;
+    width: 4rem;
+    height: 4rem;
+    background: #aaa;
+    border-radius: 999999999px;
+}
