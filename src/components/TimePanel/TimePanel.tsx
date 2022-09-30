@@ -1,24 +1,34 @@
-import { FC, useContext } from 'react';
+import { FC,  useContext } from 'react';
 import { FieldContext } from '../../common/Field/FieldContext';
+import SpeedButton from './SpeedButton/SpeedButton';
 import './TimePanel.css';
 
 interface TimePanelProps {};
 
 const TimePanel: FC<TimePanelProps> = () => {
-    const { timerToggle, timerStatus, setSpeed } = useContext(FieldContext);
-    const toggleSpeed = (value: number): ()=>void => {
-        return () => {
-            setSpeed(value)
-        }
-    }
+    const { timerToggle, timerStatus } = useContext(FieldContext);
+
     return (
 		<div className='TimePanel'>
-			<div>
-				<button onClick={timerToggle}>{timerStatus ? 'P' : 'S'}</button>
-				<button onClick={toggleSpeed(1000)}>t1</button>
-				<button onClick={toggleSpeed(500)}>t2</button>
-				<button onClick={toggleSpeed(250)}>t3</button>
-			</div>
+			<button onClick={timerToggle}>
+				{timerStatus ? (
+					<i className='fa-solid fa-pause'></i>
+				) : (
+					<i className='fa-solid fa-play'></i>
+				)}
+			</button>
+			<SpeedButton valueSpeed={1000}>
+				<i className='fa-solid fa-angle-right'></i>
+			</SpeedButton>
+			<SpeedButton valueSpeed={500}>
+				<i className='fa-solid fa-angle-right'></i>
+				<i className='fa-solid fa-angle-right'></i>
+			</SpeedButton>
+			<SpeedButton valueSpeed={250}>
+				<i className='fa-solid fa-angle-right'></i>
+				<i className='fa-solid fa-angle-right'></i>
+				<i className='fa-solid fa-angle-right'></i>
+			</SpeedButton>
 		</div>
 	);
 }

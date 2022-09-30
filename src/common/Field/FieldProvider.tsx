@@ -41,6 +41,7 @@ const FieldProvider: FC<FieldProviderProps> = ({ children }) => {
 			value={{
 				field,
 				timerStatus,
+				speed,
 				toggleCell,
 				randomFillField: randomFillField(field, (value) =>
 					setField(value)

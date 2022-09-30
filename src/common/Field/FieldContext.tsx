@@ -16,8 +16,9 @@ export const initialFieldContext: ICell[][] = enumArr(Field, (item, x, y) => {
 export const FieldContext = createContext({
 	field: initialFieldContext,
 	timerStatus: false,
+	speed: 1000,
 	toggleCell: (targetCell: ICell) => {},
 	randomFillField: () => {},
-    timerToggle: () => {},
-    setSpeed: (value: number) => {}
+	timerToggle: () => {},
+	setSpeed: (value: number) => {},
 });

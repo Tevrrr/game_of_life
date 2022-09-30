@@ -2,24 +2,39 @@
 
 .TimePanel {
 	position: fixed;
-	bottom: 1rem;
-	display: flex;
-	width: 100%;
-	justify-content: center;
-}
-
-.TimePanel > div {
+	top: 0;
 	display: flex;
 	gap: 1rem;
 	background: #aaa9;
-	padding: .5rem;
+	padding: 0.5rem;
 	border-radius: 999999999px;
 }
-.TimePanel button {
 
-    font-size: 2rem;
-    width: 4rem;
-    height: 4rem;
-    background: #aaa;
-    border-radius: 999999999px;
+.TimePanel button {
+	font-size: 2rem;
+	width: 4rem;
+	height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	background: #18181b;
+    color: #fafafa;
+	border-radius: 999999999px;
+	box-shadow: 16px 15px 45px -22px rgba(10, 10, 10, 0.77);
+	-webkit-box-shadow: 16px 15px 45px -22px rgba(10, 10, 10, 0.77);
+	-moz-box-shadow: 16px 15px 45px -22px rgba(10, 10, 10, 0.77);
+    transition: all .15s;
+}
+
+.TimePanel button.arrow {
+    letter-spacing: -.5rem;
+    padding-right: .5rem;
+}
+
+.TimePanel button.active {
+    letter-spacing: -.5rem;
+    padding-right: .5rem;
+    border: #18181b solid .3rem;
+    background: #fafafa;
+    color: #18181b;
 }
